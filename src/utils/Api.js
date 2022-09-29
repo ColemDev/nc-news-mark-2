@@ -23,12 +23,8 @@ export const fetchTopics = async () => {
   const { data } = await axios.get(`${baseURL}/topics`);
   return data.topics;
 };
-
+//my versioni
 export const fetchArticlesByTopic = async (topic) => {
   const { data } = await axios.get(`${baseURL}/articles?topic=${topic}`);
   return data.articles;
-};
-//articles api takes three queries: sort_by, order, and topic
-export const fetchSpecificTopic = async (topic) => {
-  const { data } = await axios.get(`${baseURL}/articles?topic=${topic}`);
 };

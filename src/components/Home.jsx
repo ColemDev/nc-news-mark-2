@@ -1,23 +1,4 @@
-import { useEffect, useState } from "react";
-// import { fetchTopics } from "../utils/api";
-// import { Link } from "react-router-dom";
-
-/*
-The home should have a list of all the topics available on the site in the form of clickable buttons and ordered by the number of articles that have the same topic as the topic slug parameter.
-*/
-
-// const topicObjectArray = fetchTopics();
-// const topicSlugArray = topicObjectArray.map((topic) => {
-//   return topic.slug;
-// });
-
 const Home = () => {
-  // const [topicSlugs, setTopicSlugs] = useState([]);
-
-  // useEffect(() => {
-  //   setTopicSlugs(topicSlugArray);
-  // }, []);
-
   return (
     <div>
       <section className="Welcome">
@@ -48,18 +29,6 @@ const Home = () => {
         <p>
           Click on a topic to check out articles for our most popular topics!
         </p>
-        {/* <ul>
-          {topicSlugs.map((topic) => {
-            return ( */}
-        /* should have a link that passes the topic slug as a parameter to the
-        ArticlesByTopic component which will then fetch the articles for that
-        topic and display them in a list */
-        {/* <li key={topic}>
-                <Link to={`/articles/topic=${topic}`}>{topic}</Link>
-              </li>
-            );
-          })}
-        </ul> */}
       </section>
     </div>
   );
