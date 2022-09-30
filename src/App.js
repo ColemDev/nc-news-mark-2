@@ -1,4 +1,3 @@
-// import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -7,16 +6,12 @@ import ArticlesByTopic from "./components/ArticlesByTopic";
 import ArticlesById from "./components/ArticlesById";
 import Home from "./components/Home";
 import CommentsByArticleId from "./components/CommentsByArticleId";
-// import Nav from "./components/Nav";
-// import Search from "./components/Search";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
         <Header />
-        {/* <Nav /> */}
-        {/* <Search /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/articles" element={<ArticlesList />} />
