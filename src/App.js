@@ -3,10 +3,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import ArticlesList from "./components/ArticlesList";
-import { useParams } from "react-router-dom";
-// import ArticlesByTopic from "./components/ArticlesByTopic";
-// import Article
+import ArticlesByTopic from "./components/ArticlesByTopic";
+import ArticlesById from "./components/ArticlesById";
 import Home from "./components/Home";
+import CommentsByArticleId from "./components/CommentsByArticleId";
 // import Nav from "./components/Nav";
 // import Search from "./components/Search";
 
@@ -20,8 +20,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/articles" element={<ArticlesList />} />
-          {/* <Route path="/articles/:topic" element={<ArticlesByTopic />} /> */}
-          {/* <Route path="/articles/:article_id" element={<Article />} /> */}
+          <Route path="/articles/topic/:topic" element={<ArticlesByTopic />} />
+          <Route path="/articles/:article_id" element={<ArticlesById />} />
+          <Route
+            path="/articles/:article_id/comments"
+            element={<CommentsByArticleId />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

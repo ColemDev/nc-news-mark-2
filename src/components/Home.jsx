@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
-    <div>
+    <div className="home">
       <section className="Welcome">
         <h1>Welcome to Northcoders News!</h1>
         <p>Insert some text here about what this site is about.</p>
@@ -24,11 +26,22 @@ const Home = () => {
 
         <p>We hope you enjoy our site!</p>
       </section>
-
       <section className="topics">
-        <p>
-          Click on a topic to check out articles for our most popular topics!
-        </p>
+        <h2>Topics</h2>
+        <ul>
+          <li>
+            <Link to="/articles/topic/coding">Coding</Link>
+          </li>
+          <li>
+            <Link to="/articles/topic/cooking">Cooking</Link>
+          </li>
+          <li>
+            <Link to="/articles/topic/football">Football</Link>
+          </li>
+          <li>
+            <Link to="/articles/topic/cats">Cats</Link>
+          </li>
+        </ul>
       </section>
     </div>
   );

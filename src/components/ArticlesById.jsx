@@ -1,71 +1,54 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchArticleById } from "../utils/Api";
-import { fetchCommentsByArticleId } from "../utils/Api";
-import { convertDateFromMilliseconds } from "./Helpers/ConvertDate";
-
-// maybe move this date converter to a seperate helper folder
-
-const ArticlesById = (props) => {
+import convertDateFromMilliseconds from "../utils/dateReformat";
+import { useParams } from "react-router-dom";
+// import CommentsByArticleId from "./CommentsByArticleId";
+const ArticlesById = () => {
   const [article, setArticle] = useState({});
-  const [comments, setComments] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const { article_id } = useParams();
 
   useEffect(() => {
-    fetchArticleById(props.article_id).then((article) => {
+    setIsLoading(true);
+    fetchArticleById(article_id).then((article) => {
       setArticle(article);
+      setIsLoading(false);
     });
-  }, [props.article_id]);
+  }, [article_id]);
 
-  useEffect(() => {
-    fetchCommentsByArticleId(props.article_id).then((comments) => {
-      setComments(comments);
-    });
-  }, [props.article_id]);
+  if (isLoading) {
+    return <p>Loading...article</p>;
+  }
+
   return (
-    <div>
-      <section>
-        <h1>{article.title}</h1>
-        <article class="ArticleById">
-          <p>by {article.author}</p>
-          <p>
-            Like this topic? Click the topic link for more
-            <Link to={`/articles?topic=${article.topic}`}>{article.topic}</Link>
-            !
-          </p>
-          <p>likes{article.votes}</p>
-          <p>published on {convertDateFromMilliseconds(article.created_at)}</p>
-          <p>{article.body}</p>
-          <p>
-            Press <button>Like</button> to like {article.title}
-          </p>
-        </article>
-      </section>
-      <section>
-        {/* <h3>{commentCounterById} Comments </h3> */}
-        <p>Add a Comment</p>
-        <form>
-          <label>
-            Comment:
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </section>
-      {/* <section>
-        <ul>
-          {fetchCommentsByArticleId.map((comment) => {
-            return (
-              <li key={comment}>
-                <article class="CommentById">
-                  <p>{comment.body}</p>
-                  <p>{comment.author}</p>
-                  <p>{comment.votes}</p>
-                  <p>{convertDateFromMilliseconds(comment.created_at)}</p>
-                </article>
-              </li>
-            );
-          })}
-        </ul>
-      </section> */}
+    <div className="articles-by-id">
+      <h1>{article.title}</h1>
+      <p>by {article.author}</p>
+      <p>likes{article.votes}</p>
+      <p>published on {convertDateFromMilliseconds(article.created_at)}</p>
+      <p>{article.body}</p>
+      <Link to={`/articles`}>go to all articles</Link>
+      <p>
+        Like articles like this? We do too! You can click the link below for{" "}
+        <i>more</i>
+        articles on {article.topic}!
+      </p>
+      <p>
+        <Link to={`/articles/topic/${article.topic}`}>{article.topic}</Link>
+      </p>
+      <p>
+        Press <button>Like</button> to like {article.title}
+      </p>
+      <p>Add a Comment</p>
+      <form>
+        <label>
+          Comment:
+          <input type="text" name="name" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      {/* <CommentsByArticleId /> */}
     </div>
   );
 };
