@@ -1,27 +1,30 @@
-// import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import ArticlesById from "./components/ArticlesById";
+import ArticlesByTopic from "./components/ArticlesByTopic";
 import ArticlesList from "./components/ArticlesList";
-import { useParams } from "react-router-dom";
-// import ArticlesByTopic from "./components/ArticlesByTopic";
-// import Article
+import TopicsList from "./components/TopicsList";
+import CommentsByArticleId from "./components/CommentsByArticleId";
 import Home from "./components/Home";
-// import Nav from "./components/Nav";
-// import Search from "./components/Search";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
         <Header />
-        {/* <Nav /> */}
-        {/* <Search /> */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/articles" element={<ArticlesList />} />
-          {/* <Route path="/articles/:topic" element={<ArticlesByTopic />} /> */}
-          {/* <Route path="/articles/:article_id" element={<Article />} /> */}
+          <Route path="/topics" element={<TopicsList />} />
+          <Route path="/articles/topic/:topic" element={<ArticlesByTopic />} />
+          <Route path="/articles/:article_id" element={<ArticlesById />} />
+          <Route
+            path="/articles/:article_id/comments"
+            element={<CommentsByArticleId />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

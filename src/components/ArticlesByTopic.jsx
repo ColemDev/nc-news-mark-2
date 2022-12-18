@@ -1,44 +1,43 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchArticlesByTopic } from "../utils/api";
+import { fetchArticlesByTopic } from "../utils/Api";
 import convertDateFromMilliseconds from "../utils/dateReformat";
+import { useParams } from "react-router-dom";
 
-/* the user clicks on a topic button on the home page which uses `/articles/topic=${topic}` as the path and passes the topic slug as a parameter to the ArticlesByTopic component which will then fetch the articles for that topic and display them in a list in nearly the same way as the ArticlesList component does */
-
-const ArticlesByTopic = (props) => {
-  console.log(props);
-  const [articles, setArticles] = useState({});
+const ArticlesByTopic = () => {
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { topic } = useParams();
 
   useEffect(() => {
-    fetchArticlesByTopic(props.topic).then((articles) => {
+    setIsLoading(true);
+    fetchArticlesByTopic(topic).then((articles) => {
       setArticles(articles);
+      setIsLoading(false);
     });
-  }, [props.topic]);
+  }, [topic]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="articles-list">
-      <h1>Articles on {props.topic}</h1>
+      <h1>Articles on {topic}</h1>
       <ul>
-        {Object.keys(articles).map((article) => {
+        {articles.map((article) => {
           return (
-            <li key={article}>
-              <article className="articles-list-item">
-                <h2>{articles[article].title}</h2>
-                <p>by {articles[article].author}</p>
-                <p>Likes {articles[article].votes}</p>
-                <p>
-                  published on{" "}
-                  {convertDateFromMilliseconds(articles[article].created_at)}
-                </p>
-                <p>
-                  {" "}
-                  Read {articles[article].title}
-                  <Link to={`/articles/${articles[article].article_id}`}>
-                    here
-                  </Link>
-                  .
-                </p>
-              </article>
+            <li key={article.article_id}>
+              <h2>{article.title}</h2>
+              <p>by {article.author}</p>
+              <p>likes{article.votes}</p>
+              <p>
+                published on {convertDateFromMilliseconds(article.created_at)}
+              </p>
+              <Link to={`/articles/${article.article_id}`}>go to article</Link>
+              <p>
+                Press <button>Like</button> to like {article.title}
+              </p>
             </li>
           );
         })}
@@ -46,3 +45,5 @@ const ArticlesByTopic = (props) => {
     </div>
   );
 };
+
+export default ArticlesByTopic;
